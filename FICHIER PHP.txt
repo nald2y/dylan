@@ -1,0 +1,17 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['media'])) {
+    $uploadDir = 'uploads/';
+    $fileName = basename($_FILES['media']['name']);
+    $uploadFile = $uploadDir . $fileName;
+
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+
+    if (move_uploaded_file($_FILES['media']['tmp_name'], $uploadFile)) {
+        echo "Fichier uploadé avec succès : " . htmlspecialchars($fileName);
+    } else {
+        echo "Erreur : Impossible d’uploader le fichier.";
+    }
+}
+?>
